@@ -43,7 +43,7 @@ After successfull compilation, you can execute a class with a main method.
 To execute a specific class with command-line arguments:
 
 ```bash
-$ mvn exec:java -Dmainclass=pt.tecnico.CryptoExample -Dexec.args="etc/secret.key"
+$ mvn exec:java -Dmainclass=pt.tecnico.CryptoExample -Dexec.args="keys/secret.key"
 ```
 
 `-D` is the Maven syntax to redefine a property.  
