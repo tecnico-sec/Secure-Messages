@@ -252,7 +252,7 @@ Were you successful? If so, how is it possible?
 Again, fix the vulnerabilities in your server code, if possible.
 
 
-## 4. Additional code exercise
+## 4. Code exercise continuation
 
 ### 4.1 Add confidentiality protection
 
