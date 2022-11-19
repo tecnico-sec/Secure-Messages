@@ -2,10 +2,7 @@ Instituto Superior Técnico, Universidade de Lisboa
 
 **Network and Computer Security**
 
-
-
 # Lab guide: Secure Messages
-
 
 ## Introduction
 
@@ -17,18 +14,23 @@ This laboratory assignment uses UDP sockets for communication, the JSON data for
 - Analyze messages before and after their protection
 - Demonstrate effectiveness of protection with attacks
 
-
 ## 0. Setup
 
-For the laboratory you will one machine with a Java development environment installed.
+For the laboratory you will need one machine with a Java development environment installed.
 You should have JDK (*Java Developer Kit*) 8 or later. You can use Linux or Windows.
+
+If you decide on using the SEED Labs VM, you may have to update it and install Maven.
+
+```bash
+sudo apt update && sudo apt upgrade && sudo apt install maven
+```
 
 To try the examples, the Java code needs to be compiled and executed.
 
 Put the lab files in a working folder with write permissions, like `/tmp/SecureMessages`, for example, and change your working directory to it.
 
 ```bash
-$ cd /tmp/SecureMessages
+cd /tmp/SecureMessages
 ```
 
 You should compile the code using [Maven](https://maven.apache.org/).
@@ -36,21 +38,20 @@ Maven retrieves libraries from the Internet and properly configures the classpat
 To compile:
 
 ```bash
-$ mvn clean compile
+mvn clean compile
 ```
 
 After successfull compilation, you can execute a class with a main method.  
 To execute a specific class with command-line arguments:
 
 ```bash
-$ mvn exec:java -Dmainclass=pt.tecnico.CryptoExample -Dexec.args="keys/secret.key"
+mvn exec:java -Dmainclass=pt.tecnico.CryptoExample -Dexec.args="keys/secret.key"
 ```
 
 `-D` is the Maven syntax to redefine a property.  
 `mainclass` defines the property that sets the class to execute.  
 `exec.args` defines the property that sets the command-line arguments.  
 You can also modify the class and arguments directly in the `pom.xml` file.
-
 
 ## 1. Code examples
 
@@ -67,7 +68,7 @@ The classes [DatagramServer](src/pt/tecnico/DatagramServer.java) and [DatagramCl
 First, you should start the server:
 
 ```bash
-$ mvn exec:java -Dmainclass=pt.tecnico.DatagramServer -Dexec.args="8000"
+mvn exec:java -Dmainclass=pt.tecnico.DatagramServer -Dexec.args="8000"
 ```
 
 The server will receive packets on UDP port 8000.
@@ -75,10 +76,10 @@ You can use an alternative port, as long as it is not reserved or being used by 
 
 The server runs in a loop that receives a packet and sends back a reply.
 
-To start the client:
+To start the client, sending the message `World!` to the server:
 
 ```bash
-$ mvn exec:java -Dmainclass=pt.tecnico.DatagramClient -Dexec.args="localhost 8000"
+mvn exec:java -Dmainclass=pt.tecnico.DatagramClient -Dexec.args="localhost 8000 World!"
 ```
 
 Study the source code, in particular, the socket and packet creation, and how to send and receive packets.
@@ -130,22 +131,23 @@ String bodyValue = bodyJson.getAsString();
 To run the example:
 
 ```bash
-$ mvn exec:java -Dmainclass=pt.tecnico.JsonExample
+mvn exec:java -Dmainclass=pt.tecnico.JsonExample
 ```
 
 The UDP server and client classes were modified to exchange messages in JSON format.  
 The modified classes are called [JsonServer](src/pt/tecnico/JsonServer.java) and [JsonClient](src/pt/tecnico/JsonClient.java).
 
 Reference:
+
 - [JSON Parser tutorial](http://tutorials.jenkov.com/java-json/gson-jsonparser.html)
 - [GSON JavaDoc](https://www.javadoc.io/doc/com.google.code.gson/gson/latest/com.google.gson/module-summary.html)
-
 
 ### 1.3 JCA
 
 The JCA (*Java Cryptography Architecture*) is part of the Java platform and provides abstractions for secure random number generation, key generation and management, certificates and certificate validation, encryption (symmetric/asymmetric block/stream ciphers), message digests (hashes), and digital signatures.
 
 The [CryptoExample](src/pt/tecnico/CryptoExample.java) performs three things:
+
 - reads a secret key from a file;
 - ciphers some plaintext;
 - computes the hash of the same plaintext.
@@ -153,7 +155,7 @@ The [CryptoExample](src/pt/tecnico/CryptoExample.java) performs three things:
 To run the example:
 
 ```bash
-$ mvn exec:java -Dmainclass=pt.tecnico.CryptoExample -Dexec.args="keys/secret.key"
+mvn exec:java -Dmainclass=pt.tecnico.CryptoExample -Dexec.args="keys/secret.key"
 ```
 
 The code can be extended to also read asymmetric keys and to use them.
@@ -176,7 +178,6 @@ Base64 is **not** encryption, as no key is required to encode or decode.
 
 Reference: [Base64](https://en.wikipedia.org/wiki/Base64)
 
-
 ## 2. Code exercise
 
 The exercise will start from the [JsonServer](src/pt/tecnico/JsonServer.java) and [JsonClient](src/pt/tecnico/JsonClient.java) classes.
@@ -185,13 +186,13 @@ They should be copied and renamed to **`SecureServer`** and **`SecureClient`**, 
 To run the newly created server:
 
 ```bash
-$ mvn compile exec:java -Dmainclass=pt.tecnico.SecureServer -Dexec.args="8000"
+mvn compile exec:java -Dmainclass=pt.tecnico.SecureServer -Dexec.args="8000"
 ```
 
 Open another console to run the client:
 
 ```bash
-$ mvn compile exec:java -Dmainclass=pt.tecnico.SecureClient -Dexec.args="localhost 8000"
+mvn compile exec:java -Dmainclass=pt.tecnico.SecureClient -Dexec.args="localhost 8000"
 ```
 
 ### 2.1 Add information field to message
@@ -225,7 +226,6 @@ The client should add a freshness token to the message to send.
 The server must verify the token in the received message.  
 If the received message is not fresh, it should be rejected by the server.
 
-
 ## 3. Attacks
 
 Hopefully the integrity and freshness mechanisms have been correctly implemented.
@@ -251,7 +251,6 @@ Were you successful? If so, how is it possible?
 
 Again, fix the vulnerabilities in your server code, if possible.
 
-
 ## 4. Code exercise continuation
 
 ### 4.1 Add confidentiality protection
@@ -266,17 +265,14 @@ Are you using an hybrid cipher? Justify your answer.
 
 Can the produced solution prevent the repudation of messages i.e. can the client deny having sent a message? Justify your answer.
 
-
 ## 5. Conclusion
 
 In this laboratory assignment we used UDP sockets with JSON payloads, protected with cryptographic functions, to implement custom secure messages.
 A good understanding of the building blocks is important to effectively use real-world secure channels such as TLS or SSH.
 
-
 **Acknowledgments**
 
 Pedro Adão, Vasco Guita and Ricardo Chaves for the feedback.
-
 
 ----
 
