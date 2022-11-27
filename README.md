@@ -270,10 +270,6 @@ Can the produced solution prevent the repudation of messages i.e. can the client
 In this laboratory assignment we used UDP sockets with JSON payloads, protected with cryptographic functions, to implement custom secure messages.
 A good understanding of the building blocks is important to effectively use real-world secure channels such as TLS or SSH.
 
-**Acknowledgments**
-
-Pedro Adão, Vasco Guita and Ricardo Chaves for the feedback.
-
 ----
 
 [SIRS Faculty](mailto:meic-sirs@disciplinas.tecnico.ulisboa.pt)
