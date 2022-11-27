@@ -348,3 +348,4 @@ TSWLatexianTemp*
 
 # old files folder
 _old
+.vscode/settings.json
