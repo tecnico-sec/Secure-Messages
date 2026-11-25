@@ -231,8 +231,8 @@ If the received message is not fresh, it should be rejected by the server.
 Hopefully the integrity and freshness mechanisms have been correctly implemented.
 How can we be confident in their effectiveness unless we try to attack them?
 
-In this step, we will add a conceptual *man-in-the-middle* that will "intercept" the message and try to modify it.
-For simplicity, we will not deploy an actual middle server. We will just add malicious lines of code to the client or the server.
+In this step, we will add a conceptual *adversary-in-the-middle* that will "intercept" the message and try to modify it.
+For simplicity, we will not deploy an actual middle server. We will just add "malicious" lines of code to the client or the server.
 
 ### 3.1 Tamper with data
 
