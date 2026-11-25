@@ -19,7 +19,7 @@ This laboratory assignment uses UDP sockets for communication, the JSON data for
 For the laboratory you will need one machine with a Java development environment installed.
 You should have JDK (*Java Developer Kit*) 8 or later. You can use Linux or Windows.
 
-If you decide on using the SEED Labs VM, you may have to update it and install Maven.
+If you decide on using the Kali Linux VM, you may have to update it and install Maven.
 
 ```bash
 sudo apt update && sudo apt upgrade && sudo apt install maven
